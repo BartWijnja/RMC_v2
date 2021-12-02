@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "TBL_USER")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
