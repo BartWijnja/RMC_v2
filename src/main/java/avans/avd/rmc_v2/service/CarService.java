@@ -1,6 +1,8 @@
 package avans.avd.rmc_v2.service;
 
+import avans.avd.rmc_v2.enums.CarType;
 import avans.avd.rmc_v2.model.Car;
+import avans.avd.rmc_v2.model.User;
 import avans.avd.rmc_v2.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -70,8 +72,18 @@ public class CarService {
         }
     }
 
-//    public List<Car> getCarsByUser(Long id) {
-//
-//    }
+    public Car findCarByUser(Long id, User user) {
+        Optional<Car> carOptional = carRepository.findById(id);
+        if(carOptional.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Car not found.");
+        }
+        Car car = carOptional.get();
+
+        if (car.getUser() != user) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Car does not belong to user.");
+        }
+        return car;
+    }
+
 
 }

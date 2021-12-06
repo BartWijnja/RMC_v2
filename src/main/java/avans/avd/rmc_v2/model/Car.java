@@ -30,6 +30,7 @@ public class Car {
     @Enumerated(EnumType.STRING)
     private CarType carType;
     @ManyToOne
+    @JoinColumn(name="user_id")
     private User user;
     @CreationTimestamp
     private LocalDateTime createdAt;

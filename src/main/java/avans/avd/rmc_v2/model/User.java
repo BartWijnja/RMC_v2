@@ -3,15 +3,14 @@ package avans.avd.rmc_v2.model;
 
 import avans.avd.rmc_v2.enums.UserRole;
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -38,6 +37,10 @@ public class User {
     private String email;
     @NotNull
     private String password;
+    // join column with Car
+    @OneToMany(mappedBy= "user",
+        orphanRemoval = true)
+    private List<Car> car;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
     @CreationTimestamp
