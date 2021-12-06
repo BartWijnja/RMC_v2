@@ -1,7 +1,6 @@
 package avans.avd.rmc_v2.service;
 
 import avans.avd.rmc_v2.model.Car;
-import avans.avd.rmc_v2.model.User;
 import avans.avd.rmc_v2.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,18 +70,8 @@ public class CarService {
         }
     }
 
-
-    public Car findCarByUser(Long id, User user) {
-        Optional<Car> carOptional = carRepository.findById(id);
-        if(carOptional.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Car not found.");
-        }
-        Car car = carOptional.get();
-
-        if (car.getUser() != user) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Car is not owned by the user ");
-        }
-        return car;
+    public List<Car> getCarsByUser(Long id) {
+        return carRepository.findAllById(Collections.singleton(id));
     }
 
 }

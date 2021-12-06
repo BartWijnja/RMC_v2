@@ -44,6 +44,11 @@ public class CarController {
     public ResponseEntity<HttpStatus> deleteCar(@PathVariable Long id) {
         return carService.deleteCar(id);
     }
+
+    @GetMapping("/getcarsbyuser/{id}")
+    public List<Car> getCarsByUser(Long id) {
+        return carService.getCarsByUser(id);
+    }
 }
 
 
