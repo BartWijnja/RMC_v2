@@ -45,10 +45,10 @@ public class CarController {
         return carService.deleteCar(id);
     }
 
-    @GetMapping("/getcarsbyuser/{id}")
-    public List<Car> getCarsByUser(Long id) {
-        return carService.getCarsByUser(id);
-    }
+//    @GetMapping("/getcarsbyuser/{id}")
+//    public List<Car> getCarsByUser(Long id) {
+//        return carService.getCarsByUser(id);
+//    }
 }
 
 
