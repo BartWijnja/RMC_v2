@@ -35,5 +35,4 @@ public class Car {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-
 }
