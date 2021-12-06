@@ -70,8 +70,8 @@ public class CarService {
         }
     }
 
-    public List<Car> getCarsByUser(Long id) {
-        return carRepository.findAllById(Collections.singleton(id));
-    }
+//    public List<Car> getCarsByUser(Long id) {
+//
+//    }
 
 }
