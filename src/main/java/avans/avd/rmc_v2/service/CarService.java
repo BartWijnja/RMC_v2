@@ -1,27 +1,29 @@
 package avans.avd.rmc_v2.service;
 
-import avans.avd.rmc_v2.enums.CarType;
 import avans.avd.rmc_v2.model.Car;
 import avans.avd.rmc_v2.model.User;
 import avans.avd.rmc_v2.repository.CarRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CarService {
 
     private final CarRepository carRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public CarService(CarRepository carRepository) {
+    public CarService(CarRepository carRepository, ModelMapper modelMapper) {
         this.carRepository = carRepository;
+        this.modelMapper = modelMapper;
     }
 
     public List<Car> getAllCars() {
@@ -71,6 +73,13 @@ public class CarService {
             return ResponseEntity.noContent().build();
         }
     }
+
+//    public List<Car> getCarsByUser(User user) {
+//        return carRepository.findAllByUser(user)
+//                .stream()
+//                .map(obj -> modelMapper.map(obj, Car.class))
+//                .collect(Collectors.toList());
+//    }
 
     public Car findCarByUser(Long id, User user) {
         Optional<Car> carOptional = carRepository.findById(id);

@@ -52,6 +52,12 @@ public class CarController {
         return carService.deleteCar(id);
     }
 
+//    @GetMapping("/getcarsbyuser")
+//    public List<Car> getCarsByUser(Long id) {
+//        User user = userService.getUserById(id);
+//        return carService.getCarsByUser(user);
+//    }
+
     @GetMapping("/getcarsbyuser/{id}")
     public Car getCarByUser(@PathVariable("id") Long id) {
         User user = userService.getUserById(id);
