@@ -26,6 +26,7 @@ public class Car {
     private String licensePlateNumber;
     private Double consumption; // per 100km
     private int costPrice;
+    private int tco;
     @Enumerated(EnumType.STRING)
     private CarType carType;
     @ManyToOne
@@ -34,6 +35,5 @@ public class Car {
     private LocalDateTime createdAt;
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
 
 }

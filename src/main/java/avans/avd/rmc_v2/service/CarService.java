@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,6 +68,10 @@ public class CarService {
             carRepository.deleteById(id);
             return ResponseEntity.noContent().build();
         }
+    }
+
+    public List<Car> getCarsByUser(Long id) {
+        return carRepository.findAllById(Collections.singleton(id));
     }
 
 }
