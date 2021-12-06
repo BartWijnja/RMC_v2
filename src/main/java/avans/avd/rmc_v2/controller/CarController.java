@@ -2,13 +2,8 @@ package avans.avd.rmc_v2.controller;
 
 
 
-import avans.avd.rmc_v2.dto.CarDto;
 import avans.avd.rmc_v2.model.Car;
-import avans.avd.rmc_v2.model.User;
-import avans.avd.rmc_v2.repository.UserRepository;
 import avans.avd.rmc_v2.service.CarService;
-import avans.avd.rmc_v2.service.UserService;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,12 +18,10 @@ import java.util.List;
 public class CarController {
 
     private CarService carService;
-    private UserService userService;
 
     @Autowired
-    public CarController(CarService carService, UserService userService) {
+    public CarController(CarService carService) {
         this.carService = carService;
-        this.userService = userService;
     }
 
     @GetMapping("/getcars")
@@ -51,9 +44,6 @@ public class CarController {
     public ResponseEntity<HttpStatus> deleteCar(@PathVariable Long id) {
         return carService.deleteCar(id);
     }
-
-    @GetMapping("/getcarsbyuser")
-    public List<CarDto> getCarsByUser(User user) {
-        return carService.getCarsByUser(user);
-    }
 }
+
+
