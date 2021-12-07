@@ -2,17 +2,8 @@
 
 ## TO DO:
 
-- RentalPlan todo:
-    - RentalPlanService
-    - RentalPlanRepository
-    - RentalPlanDto
-    - RentalPlanController
-- Reservation todo:
-    - ReservationService
-    - ReservationRepository
-    - ReservationDto
-    - ReservationController
-- Timeslot todo:
-    - ReservationService
-    - TimeslotRepository
-    - TimeslotController
+- One to Many relatie tussen User en Car werkend krijgen
+- Get Requests maken voor getCarByUser
+- Get Request maken voor Car by CarType
+- TCO methode maken
+- 3 Unit Tests
