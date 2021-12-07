@@ -28,9 +28,6 @@ public class CarController {
         this.userService = userService;
     }
 
-
-
-
     @GetMapping("/getcars")
     public List<Car> getCarList() {
         return carService.getAllCars();

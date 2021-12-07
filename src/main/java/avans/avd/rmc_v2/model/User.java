@@ -2,6 +2,7 @@ package avans.avd.rmc_v2.model;
 
 
 import avans.avd.rmc_v2.enums.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,6 +15,7 @@ import java.util.List;
 
 
 @Entity
+@Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -37,10 +39,9 @@ public class User {
     private String email;
     @NotNull
     private String password;
-    // join column with Car
-    @OneToMany(mappedBy= "user",
-        orphanRemoval = true)
-    private List<Car> car;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("book")
+    private List<Car> carList = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
     @CreationTimestamp
