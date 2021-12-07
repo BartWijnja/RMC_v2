@@ -37,10 +37,8 @@ public class User {
     private String iban;
     @NotNull
     private String email;
-    @NotNull
-    private String password;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("book")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userId", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
     private List<Car> carList = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private UserRole userRole;

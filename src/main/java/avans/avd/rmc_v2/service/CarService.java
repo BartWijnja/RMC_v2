@@ -12,7 +12,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CarService {
@@ -81,18 +80,18 @@ public class CarService {
 //                .collect(Collectors.toList());
 //    }
 
-    public Car findCarByUser(Long id, User user) {
-        Optional<Car> carOptional = carRepository.findById(id);
-        if(carOptional.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Car not found.");
-        }
-        Car car = carOptional.get();
-
-        if (car.getUser() != user) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Car does not belong to user.");
-        }
-        return car;
-    }
+//    public Car findCarByUser(Long id, User user) {
+//        Optional<Car> carOptional = carRepository.findById(id);
+//        if(carOptional.isEmpty()) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Car not found.");
+//        }
+//        Car car = carOptional.get();
+//
+//        if (car.getUser() != user) {
+//            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Car does not belong to user.");
+//        }
+//        return car;
+//    }
 
 
 }

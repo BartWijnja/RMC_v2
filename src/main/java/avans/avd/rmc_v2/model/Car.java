@@ -32,7 +32,7 @@ public class Car {
     private CarType carType;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="user_id", referencedColumnName = "id")
-    private User user;
+    private User userId;
     @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp

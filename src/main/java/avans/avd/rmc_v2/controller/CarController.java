@@ -55,11 +55,11 @@ public class CarController {
 //        return carService.getCarsByUser(user);
 //    }
 
-    @GetMapping("/getcarsbyuser/{id}")
-    public Car getCarByUser(@PathVariable("id") Long id) {
-        User user = userService.getUserById(id);
-        return carService.findCarByUser(id, user);
-    }
+//    @GetMapping("/getcarsbyuser/{id}")
+//    public Car getCarByUser(@PathVariable("id") Long id) {
+//        User user = userService.getUserById(id);
+//        return carService.findCarByUser(id, user);
+//    }
 }
 
 
