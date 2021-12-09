@@ -36,7 +36,6 @@ public class CarServiceTest {
     // every test is called a spec
     @Test
     void testGetAllCars() {
-        // AAA
         // Assign
         List<Car> cars = new ArrayList<>();
 
@@ -55,7 +54,7 @@ public class CarServiceTest {
     @Test
     void testCreateCar() {
         // Assign
-        Car car = new Car(1L, "Honda", "H-RV", "EX-L", "465-HK-3", 5.7, 33450, 0, CarType.ICE, new User(), LocalDateTime.now());
+        Car car = new Car(5L, "Honda", "H-RV", "EX-L", "465-HK-3", 5.7, 33450, 0, CarType.ICE, new User(), LocalDateTime.now());
 
         // Act
         when(repository.save(car)).thenReturn(car);
@@ -67,53 +66,3 @@ public class CarServiceTest {
 
     //todo: Make Update Test & Delete Test for Car
 }
-
-
-
-/*@Service("formatService")
-public class FormatService implements IFormatService {
-    @Autowired
-    private FormatRepository repository;
-
-    public List<Format> findAll() {
-        return repository.findAll();
-    }
-
-    public void doThing(bool something) {
-        if (something) {
-            do1();
-        } else {
-            do2();
-        }
-    }
-}*/
-
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@SpringBootTest
-//public class FormatServiceTest {
-//    @Mock
-//    private FormatRepository repository;
-//
-//    @InjectMocks
-//    private FormatService service;
-//
-//    @Before
-//    public void setup() {
-//        MockitoAnnotations.initMocks(this);
-//    }
-//
-//    @Test
-//    public void testGetFormats() {
-//        List<Format> formats = new ArrayList<>();
-//
-//        formats.add(new Format(UUID.fromString("c7fe122-3e3b-11ea-8d2b-bb63141ca3f2"), "PNG",  "image/png"));
-//        formats.add(new Format(UUID.fromString("6c7ff9b4-3e3b-11ea-8d2b-937e81e123fb"), "BMP",  "image/bmp"));
-//        formats.add(new Format(UUID.fromString("6c80090e-3e3b-11ea-8d2b-cf6c5a1aa296"), "JPG",  "image/jpeg"));
-//
-//        when(repository.findAll()).thenReturn(formats);
-//        List<Format> results = service.findAll();
-//
-//        assertEquals(formats.size(), results.size());
-//    }
-//}
-

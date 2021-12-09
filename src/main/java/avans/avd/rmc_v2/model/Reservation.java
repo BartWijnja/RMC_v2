@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "reservation")
+@Table(name = "reservations")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

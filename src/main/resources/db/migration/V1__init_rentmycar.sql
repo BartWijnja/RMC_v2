@@ -1,7 +1,10 @@
+--
+-- Table structure for table `users`
+--
 DROP TABLE IF EXISTS users;
 CREATE TABLE users
 (
-    id           serial PRIMARY KEY,
+    id           serial NOT NULL,
     first_name   VARCHAR(50) NOT NULL,
     last_name    VARCHAR(50) NOT NULL,
     street       VARCHAR(50) NOT NULL,
@@ -15,11 +18,15 @@ CREATE TABLE users
     user_role    user_role   NOT NULL,
     created_at   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+-- -------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS car;
-CREATE TABLE car
+--
+-- Table structure for table `cars`
+--
+DROP TABLE IF EXISTS cars;
+CREATE TABLE cars
 (
-    id serial PRIMARY KEY,
+    id serial NOT NULL,
     brand VARCHAR(50) NOT NULL,
     brand_type VARCHAR(50) NOT NULL,
     model VARCHAR(50) NOT NULL,
@@ -29,45 +36,78 @@ CREATE TABLE car
     tco INTEGER NOT NULL,
     car_type car_type NOT NULL,
     user_id INTEGER NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_car_user FOREIGN KEY(user_id)
-        REFERENCES users(id)
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+-- -------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS timeslot;
-CREATE TABLE timeslot
+--
+-- Table structure for table `timeslots`
+--
+
+DROP TABLE IF EXISTS timeslots;
+CREATE TABLE timeslots
 (
-    id serial PRIMARY KEY,
+    id serial NOT NULL,
     start_at TIME NOT NULL,
     end_at TIME NOT NULL
 );
+-- -------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS rental_plan;
-CREATE TABLE rental_plan
+--
+-- Table structure for table `rental_plans`
+--
+DROP TABLE IF EXISTS rental_plans;
+CREATE TABLE rental_plans
 (
-    id              serial PRIMARY KEY,
+    id              serial    NOT NULL,
     car_id          INTEGER   NOT NULL,
     user_id         INTEGER   NOT NULL,
     available_from  TIMESTAMP NOT NULL,
     available_until TIMESTAMP NOT NULL,
     price           DOUBLE PRECISION DEFAULT NULL,
     in_use          BOOLEAN NOT NULL,
-    created_at      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_car_rental_plan FOREIGN KEY (car_id)
-        REFERENCES car(id),
-    CONSTRAINT fk_car_rental_plan FOREIGN KEY (user_id)
-        REFERENCES users(id)
+    created_at      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+-- -------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS reservation;
-CREATE TABLE reservation
+--
+-- Table structure for table `reservations`
+--
+DROP TABLE IF EXISTS reservations;
+CREATE TABLE reservations
 (
-    id serial PRIMARY KEY,
+    id serial NOT NULL,
     user_id INTEGER   NOT NULL,
     price DOUBLE PRECISION DEFAULT NULL,
     status reservation_status NOT NULL,
     paid_at TIMESTAMP NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_user_reservation FOREIGN KEY (user_id)
-        REFERENCES users(id)
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+-- -------------------------------------------------------------------------
+
+--
+-- Alterations for Primary Keys and Foreign Keys
+--
+
+ALTER TABLE users
+    ADD PRIMARY KEY (id);
+
+ALTER TABLE cars
+    ADD PRIMARY KEY (id),
+    ADD CONSTRAINT fk_cars_users FOREIGN KEY(user_id)
+        REFERENCES users(id);
+
+ALTER TABLE timeslots
+    ADD PRIMARY KEY (id);
+
+ALTER TABLE rental_plans
+    ADD PRIMARY KEY (id),
+    ADD CONSTRAINT fk_cars_rental_plans FOREIGN KEY (car_id)
+        REFERENCES cars(id),
+    ADD CONSTRAINT fk_cars_rental_plans FOREIGN KEY (user_id)
+        REFERENCES users(id);
+
+ALTER TABLE reservations
+    ADD PRIMARY KEY (id),
+    ADD CONSTRAINT fk_users_reservations FOREIGN KEY (user_id)
+        REFERENCES users(id);

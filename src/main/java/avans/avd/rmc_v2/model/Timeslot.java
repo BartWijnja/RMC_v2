@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "timeslot")
+@Table(name = "timeslots")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

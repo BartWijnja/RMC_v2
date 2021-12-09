@@ -30,9 +30,9 @@ public class CarController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Car> createCar(@RequestBody Car car) {
+    public Car createCar(@RequestBody Car car) {
 
-        return ResponseEntity.accepted().body(carService.createCar(car));
+        return carService.createCar(car);
     }
 
     @PutMapping(path = "/{id}")
