@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -30,13 +28,10 @@ public class Car {
     private int tco;
     @Enumerated(EnumType.STRING)
     private CarType carType;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id", referencedColumnName = "id")
-    private User userId;
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "user_id")
+    private User user;
     @CreationTimestamp
     private LocalDateTime createdAt;
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
-
 
 }

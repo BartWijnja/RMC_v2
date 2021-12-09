@@ -2,16 +2,12 @@ package avans.avd.rmc_v2.model;
 
 
 import avans.avd.rmc_v2.enums.UserRole;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Entity
@@ -37,15 +33,10 @@ public class User {
     private String iban;
     @NotNull
     private String email;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userId", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("user")
-    private List<Car> carList = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
     @CreationTimestamp
     private LocalDateTime createdAt;
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
 
 }
 
