@@ -24,12 +24,12 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping("/getcars")
+    @GetMapping("/")
     public List<Car> getCarList() {
         return carService.getAllCars();
     }
 
-    @PostMapping("/createcar")
+    @PostMapping("/")
     public ResponseEntity<Car> createCar(@RequestBody Car car) {
 
         return ResponseEntity.accepted().body(carService.createCar(car));

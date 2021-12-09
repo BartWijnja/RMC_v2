@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CarService {
+public class CarService implements ICarService {
 
     private final CarRepository carRepository;
 
