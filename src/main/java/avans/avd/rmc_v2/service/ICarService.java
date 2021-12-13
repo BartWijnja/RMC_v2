@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+//Blueprint of CarService
 public interface ICarService {
     List<Car> getAllCars();
     Car createCar(Car car);

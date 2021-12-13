@@ -18,7 +18,8 @@ INSERT INTO cars (brand, brand_type, model, license_plate_number, consumption, c
 VALUES ('Honda', 'H-RV', 'EX-L', '465-HK-3', 5.7, 33450, 0, CURRENT_TIMESTAMP, 'ICE', 1),
        ('Volkswagen', 'Polo', '1.6 TDI', '4-YY-685', 4.45, 25960, 0, CURRENT_TIMESTAMP, 'ICE', 2),
        ('Hyundai', 'ix35', 'FCEV', '739-PD-2', 0.59, 27050, 0, CURRENT_TIMESTAMP, 'FCEV', 3),
-       ('Peugeot', '208', 'e', '3-UP-869', 16.4, 28650, 0, CURRENT_TIMESTAMP, 'BEV', 4);
+       ('Peugeot', '208', 'e', '3-UP-869', 16.4, 28650, 0, CURRENT_TIMESTAMP, 'BEV', 4),
+       ('Tesla', 'Model', '3', '890-AH-1', 5.7, 33450, 0, CURRENT_TIMESTAMP, 'BEV', 5);
 -- -------------------------------------------------------------------------
 
 --
