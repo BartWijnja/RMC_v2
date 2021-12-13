@@ -41,7 +41,7 @@ public class CarService implements ICarService {
 
     }
 
-    public ResponseEntity<Car> updateCar(Car newCar, Long id) {
+    public Car updateCar(Car newCar, Long id) {
         Optional<Car> optionalCar = Optional.ofNullable(carRepository.findById(id).orElseThrow(
                 () -> new IllegalStateException("car with id " + id + " does not exist")
         ));
@@ -56,9 +56,9 @@ public class CarService implements ICarService {
             car.setCostPrice(newCar.getCostPrice());
             car.setCarType(newCar.getCarType());
 
-            return ResponseEntity.ok(carRepository.save(car));
+            return carRepository.save(car);
         } else {
-            return ResponseEntity.notFound().build();
+            return null;
         }
     }
 
@@ -67,7 +67,7 @@ public class CarService implements ICarService {
             return ResponseEntity.notFound().build();
         } else {
             carRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build();
         }
     }
 // todo: fix CalculateCarTco

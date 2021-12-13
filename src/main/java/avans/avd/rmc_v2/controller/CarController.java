@@ -36,7 +36,7 @@ public class CarController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Car> updateCar(@RequestBody Car newCar, @PathVariable Long id) {
+    public Car updateCar(@RequestBody Car newCar, @PathVariable Long id) {
         return carService.updateCar(newCar, id);
     }
 
@@ -45,10 +45,7 @@ public class CarController {
         return carService.deleteCar(id);
     }
 
-//    @GetMapping(path = "{id}/tco")
-//    public Car getCarTco(@PathVariable("id") Long id, @RequestParam int km) {
-//        return carService.calculateCarTco(id, km);
-//    }
+
 }
 
 

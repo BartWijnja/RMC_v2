@@ -10,6 +10,6 @@ import java.util.List;
 public interface ICarService {
     List<Car> getAllCars();
     Car createCar(Car car);
-    ResponseEntity<Car> updateCar(Car newCar, Long id);
+    Car updateCar(Car newCar, Long id);
     ResponseEntity<HttpStatus> deleteCar(Long id);
 }

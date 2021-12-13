@@ -10,19 +10,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -32,9 +31,6 @@ public class CarServiceTest {
 
     @InjectMocks
     private CarService carService;
-
-    @Autowired
-    private MockMvc mockMvc;
 
     @BeforeAll
     public void setup() {
@@ -73,8 +69,44 @@ public class CarServiceTest {
         assertEquals(car.getBrand(), result.getBrand());
     }
 
-    // Test if deleting a Car is possible
+    // Test if updating a Car is possible
+    @Test
+    void testUpdateCar() {
+        // Assign
+        Car car = new Car(1L, "Suzuki", "Swift", "2010", "420-BI-1", 4.3, 18480, 0, CarType.ICE, new User(), LocalDateTime.now());
 
+        // Act
+        when(carRepository.findById(1L)).thenReturn(Optional.of(car));
+        when(carRepository.save(car)).thenReturn(car);
 
+        carService.createCar(car);
+        car.setBrand("Fiat");
 
+        Car result = carService.updateCar(car, 1L);
+
+        // Assert
+        assertNotEquals(result.getBrand(), "Suzuki");
+    }
+
+    // Test if deleting an existing Car is possible
+    @Test
+    void testDeleteExistingCar() {
+        // Act
+        when(carRepository.existsById(1L)).thenReturn(true);
+        ResponseEntity<HttpStatus> status = carService.deleteCar(1L);
+
+        // Assert
+        assertEquals(status.getStatusCodeValue(), 200);
+    }
+
+    // Test if deleting a non-existing Car is possible
+    @Test
+    void testDeleteNonExistingCar() {
+        // Act
+        when(carRepository.existsById(1L)).thenReturn(false);
+        ResponseEntity<HttpStatus> status = carService.deleteCar(1L);
+
+        // Assert
+        assertEquals(status.getStatusCodeValue(), 404);
+    }
 }
