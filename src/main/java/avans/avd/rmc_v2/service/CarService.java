@@ -2,7 +2,6 @@ package avans.avd.rmc_v2.service;
 
 import avans.avd.rmc_v2.enums.CarType;
 import avans.avd.rmc_v2.model.Car;
-import avans.avd.rmc_v2.model.User;
 import avans.avd.rmc_v2.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +20,7 @@ public class CarService implements ICarService {
     @Autowired
     public CarService(CarRepository carRepository) {
         this.carRepository = carRepository;
+
     }
 
     public List<Car> getAllCars() {
@@ -72,42 +72,6 @@ public class CarService implements ICarService {
     }
 // todo: fix CalculateCarTco
 
-//    public Car calculateCarTco(Long id, User user, int kilometers) {
-//        Car car = findCarByUser(id, user);
-//
-//        // Cars depreciate at an average of 20% year. This method uses that average.
-//        Double depreciation = car.getCostPrice() * 0.2;
-//
-//        // costPerUnit are fixed prices.
-//        CarType carType = car.getCarType();
-//        double costPerUnit = 0.00;
-//        switch (carType) {
-//            case BEV:
-//                costPerUnit = 0.2; // €/kWh
-//                break;
-//            case ICE:
-//                costPerUnit = 1.75; // €/l
-//                break;
-//            case FCEV:
-//                costPerUnit = 2.03; // €/kg
-//                break;
-//        }
-//
-//        // Calculates yearly fuel cost based on costPerUnit of carType and consumption and provided kms in request
-//        Double yearlyFuelCost = costPerUnit * car.getConsumption() * (kilometers / 100);
-//        Double totalCostOwnership = depreciation + yearlyFuelCost;
-//        Double costPerKilometer = (car.getConsumption() / 100) * costPerUnit;
-//
-//        return new TcoDto (
-//                car.getId(),
-//                car.getConsumption(),
-//                kilometers,
-//                car.getCostPrice(),
-//                depreciation,
-//                yearlyFuelCost,
-//                totalCostOwnership,
-//                costPerKilometer
-//        );
-//    }
+
 
 }

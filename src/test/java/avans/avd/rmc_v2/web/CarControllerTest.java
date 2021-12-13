@@ -4,7 +4,6 @@ import avans.avd.rmc_v2.enums.CarType;
 import avans.avd.rmc_v2.enums.UserRole;
 import avans.avd.rmc_v2.model.Car;
 import avans.avd.rmc_v2.model.User;
-import avans.avd.rmc_v2.service.CarService;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -78,12 +77,25 @@ public class CarControllerTest {
     // Delete Car with {id} endpoint test
     @Test
     public void testDeleteCar() throws Exception {
+        User user = new User(6L, "Merel","van Laren","Poolseweg","48D","6755JQ","Breda","Nederland","+31664855136","NL12INGB078695722","merelvanlaren@gmail.com", UserRole.OWNER, LocalDateTime.now());
+        Car car = new Car(6L, "Suzuki", "Swift", "2010", "420-BI-1", 4.3, 18480, 0, CarType.ICE, user, LocalDateTime.now());
 
-        this.mockMvc.perform(MockMvcRequestBuilders
-                .delete("/api/v1/cars/5")
-        )
-        .andExpect(jsonPath("$.id").doesNotExist())
-        .andDo(print());
+        JavaTimeModule javaTimeModule = new JavaTimeModule();
+        javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")));
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        mapper.registerModule(javaTimeModule);
+
+        ObjectWriter writer = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = writer.writeValueAsString(car);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/api/v1/cars/6/")
+                        .content(requestJson)
+                )
+                .andExpect(status().isOk())
+                .andDo(print());
 
     }
 
