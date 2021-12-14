@@ -70,8 +70,28 @@ public class CarService implements ICarService {
             return ResponseEntity.ok().build();
         }
     }
+
 // todo: fix CalculateCarTco
+    public double calculateFuelCostPerYear(Long id, double kilometers) {
 
+        Car car = carRepository.getById(id);
 
+        CarType carType = car.getCarType();
 
+        double costPerUnit = 0.00;
+
+        switch (carType) {
+            case BEV:
+                costPerUnit = 0.2; // €/kWh
+                break;
+            case ICE:
+                costPerUnit = 1.75; // €/l
+                break;
+            case FCEV:
+                costPerUnit = 2.03; // €/kg
+                break;
+        }
+
+        return costPerUnit * car.getConsumption() * (kilometers / 100);
+    }
 }

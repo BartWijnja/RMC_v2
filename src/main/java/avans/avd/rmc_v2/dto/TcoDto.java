@@ -12,7 +12,6 @@ public class TcoDto {
     private Double consumption;
     private int kilometers;
     private int costPrice;
-    private Double depreciation;
     private Double yearlyFuelCost;
     private Double totalCostOwnership;
     private Double costPerKilometer;

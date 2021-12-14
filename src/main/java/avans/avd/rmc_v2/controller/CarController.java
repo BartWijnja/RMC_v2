@@ -45,6 +45,10 @@ public class CarController {
         return carService.deleteCar(id);
     }
 
+    @GetMapping("/tco/{id}/{kilometers}")
+    public double getFuelCostPerYear(@PathVariable Long id, @PathVariable double kilometers) {
+        return carService.calculateFuelCostPerYear(id, kilometers);
+    }
 
 }
 
