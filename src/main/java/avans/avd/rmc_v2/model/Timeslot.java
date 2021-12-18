@@ -20,5 +20,6 @@ public class Timeslot {
     private Long id;
     private LocalTime startAt;
     private LocalTime endAt;
+
 }
 
