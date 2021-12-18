@@ -5,13 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalTime;
 
 @Entity
+@Table(name = "timeslots")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -22,5 +20,6 @@ public class Timeslot {
     private Long id;
     private LocalTime startAt;
     private LocalTime endAt;
+
 }
 

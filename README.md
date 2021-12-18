@@ -24,4 +24,3 @@ een Android app om auto's toe te voegen en om beschikbare auto's te zoeken en re
 - Een huurder van een auto kan de (loop)route opvragen naar de huurauto vanaf de huidige locatie.
 - Tijdens het rijden worden gegevens bijgehouden in de applicatie over gereden afstand en rijgedrag (acceleratie bij optrekken en afremmen). Een rustig rijgedrag wordt beloond         door bonuspunten toe te kennen aan de huurder van auto.
 
-

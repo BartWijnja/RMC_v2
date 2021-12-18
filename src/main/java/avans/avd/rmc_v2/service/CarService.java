@@ -1,5 +1,6 @@
 package avans.avd.rmc_v2.service;
 
+import avans.avd.rmc_v2.enums.CarType;
 import avans.avd.rmc_v2.model.Car;
 import avans.avd.rmc_v2.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,18 +9,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CarService {
+public class CarService implements ICarService {
 
     private final CarRepository carRepository;
 
     @Autowired
     public CarService(CarRepository carRepository) {
         this.carRepository = carRepository;
+
     }
 
     public List<Car> getAllCars() {
@@ -40,7 +41,7 @@ public class CarService {
 
     }
 
-    public ResponseEntity<Car> updateCar(Car newCar, Long id) {
+    public Car updateCar(Car newCar, Long id) {
         Optional<Car> optionalCar = Optional.ofNullable(carRepository.findById(id).orElseThrow(
                 () -> new IllegalStateException("car with id " + id + " does not exist")
         ));
@@ -55,9 +56,9 @@ public class CarService {
             car.setCostPrice(newCar.getCostPrice());
             car.setCarType(newCar.getCarType());
 
-            return ResponseEntity.ok(carRepository.save(car));
+            return carRepository.save(car);
         } else {
-            return ResponseEntity.notFound().build();
+            return null;
         }
     }
 
@@ -66,12 +67,31 @@ public class CarService {
             return ResponseEntity.notFound().build();
         } else {
             carRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build();
         }
     }
 
-//    public List<Car> getCarsByUser(Long id) {
-//
-//    }
+// todo: fix CalculateCarTco
+    public double calculateFuelCostPerYear(Long id, double kilometers) {
 
+        Car car = carRepository.getById(id);
+
+        CarType carType = car.getCarType();
+
+        double costPerUnit = 0.00;
+
+        switch (carType) {
+            case BEV:
+                costPerUnit = 0.2; // €/kWh
+                break;
+            case ICE:
+                costPerUnit = 1.75; // €/l
+                break;
+            case FCEV:
+                costPerUnit = 2.03; // €/kg
+                break;
+        }
+
+        return costPerUnit * car.getConsumption() * (kilometers / 100);
+    }
 }

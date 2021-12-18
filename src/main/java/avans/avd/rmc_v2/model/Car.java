@@ -6,12 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "cars")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -26,14 +25,13 @@ public class Car {
     private String licensePlateNumber;
     private Double consumption; // per 100km
     private int costPrice;
-    private int tco;
+    private double tco;  // per year
     @Enumerated(EnumType.STRING)
     private CarType carType;
     @ManyToOne
+    @JoinColumn(nullable = false, name = "user_id")
     private User user;
     @CreationTimestamp
     private LocalDateTime createdAt;
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
 
 }

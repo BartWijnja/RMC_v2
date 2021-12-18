@@ -20,12 +20,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/getusers")
+    @GetMapping("/")
     public List<User> getUserList() {
         return userService.getAllUsers();
     }
 
-    @PostMapping("/createuser")
+    @PostMapping("/")
     public ResponseEntity<User> createUser(@RequestBody User user) {
 
         return ResponseEntity.accepted().body(userService.createUser(user));

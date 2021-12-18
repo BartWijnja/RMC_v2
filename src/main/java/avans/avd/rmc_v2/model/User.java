@@ -3,18 +3,15 @@ package avans.avd.rmc_v2.model;
 
 import avans.avd.rmc_v2.enums.UserRole;
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 
 @Entity
+@Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -36,14 +33,10 @@ public class User {
     private String iban;
     @NotNull
     private String email;
-    @NotNull
-    private String password;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
     @CreationTimestamp
     private LocalDateTime createdAt;
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
 
 }
 

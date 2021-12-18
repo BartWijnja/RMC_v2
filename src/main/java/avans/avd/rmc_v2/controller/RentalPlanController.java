@@ -21,7 +21,7 @@ public class RentalPlanController {
         this.rentalPlanService = rentalPlanService;
     }
 
-    @GetMapping("/getrentalplans/{id}")
+    @GetMapping("/")
     public List<RentalPlan> getRentalPlanList(@PathVariable Long id) {
         return rentalPlanService.getRentalPlansByUser(id);
     }

@@ -24,19 +24,19 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping("/getcars")
+    @GetMapping("/")
     public List<Car> getCarList() {
         return carService.getAllCars();
     }
 
-    @PostMapping("/createcar")
-    public ResponseEntity<Car> createCar(@RequestBody Car car) {
+    @PostMapping("/")
+    public Car createCar(@RequestBody Car car) {
 
-        return ResponseEntity.accepted().body(carService.createCar(car));
+        return carService.createCar(car);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Car> updateCar(@RequestBody Car newCar, @PathVariable Long id) {
+    public Car updateCar(@RequestBody Car newCar, @PathVariable Long id) {
         return carService.updateCar(newCar, id);
     }
 
@@ -45,10 +45,11 @@ public class CarController {
         return carService.deleteCar(id);
     }
 
-//    @GetMapping("/getcarsbyuser/{id}")
-//    public List<Car> getCarsByUser(Long id) {
-//        return carService.getCarsByUser(id);
-//    }
+    @GetMapping("/fuelcostperyear/{id}/{kilometers}")
+    public double getFuelCostPerYear(@PathVariable Long id, @PathVariable double kilometers) {
+        return carService.calculateFuelCostPerYear(id, kilometers);
+    }
+
 }
 
 
