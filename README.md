@@ -1,4 +1,4 @@
-# RMC_v2
+# Rent my Car
 
 Om duurzamer vervoer te stimuleren wordt een platform gemaakt om het delen van autogebruik te bevorderen. De gebouwde applicatie geeft de mogelijkheid aan gebruikers:
 
