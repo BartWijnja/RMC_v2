@@ -78,7 +78,7 @@ public class CarService implements ICarService {
 
         CarType carType = car.getCarType();
 
-        double costPerUnit = 0.00;
+        double costPerUnit;
 
         switch (carType) {
             case BEV:
@@ -90,6 +90,8 @@ public class CarService implements ICarService {
             case FCEV:
                 costPerUnit = 2.03; // €/kg
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + carType);
         }
 
         return costPerUnit * car.getConsumption() * (kilometers / 100);

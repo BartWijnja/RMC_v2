@@ -28,7 +28,7 @@ public class Car {
     private double tco;  // per year
     @Enumerated(EnumType.STRING)
     private CarType carType;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
     @CreationTimestamp
