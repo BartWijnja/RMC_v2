@@ -13,13 +13,12 @@ public class RentalPlanController {
     private final RentalPlanService rentalPlanService;
 
     @Autowired
-
     public RentalPlanController(RentalPlanService rentalPlanService) {
         this.rentalPlanService = rentalPlanService;
     }
 
     @GetMapping("/")
-    public List<RentalPlan> getAllRentalPlans() {
+    public List<RentalPlan> getRentalPlanList() {
         return rentalPlanService.getAllRentalPlans();
     }
 
