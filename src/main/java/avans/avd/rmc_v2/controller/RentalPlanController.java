@@ -22,4 +22,8 @@ public class RentalPlanController {
         return rentalPlanService.getAllRentalPlans();
     }
 
+    @PostMapping("/")
+    public RentalPlan createRentalPlan(@RequestBody RentalPlan rentalPlan) {
+        return rentalPlanService.createRentalPlan(rentalPlan);
+    }
 }
