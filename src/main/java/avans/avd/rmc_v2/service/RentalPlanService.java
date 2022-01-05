@@ -8,6 +8,7 @@ import avans.avd.rmc_v2.repository.RentalPlanRepository;
 import avans.avd.rmc_v2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -46,5 +47,15 @@ public class RentalPlanService {
         }
 
         return rentalPlanRepository.save(rentalPlan);
+    }
+
+    public ResponseEntity<HttpStatus> deleteRentalPlan(Long id) {
+
+        if (!rentalPlanRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        } else {
+            rentalPlanRepository.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
     }
 }

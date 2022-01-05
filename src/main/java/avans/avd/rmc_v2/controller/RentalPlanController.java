@@ -3,6 +3,8 @@ package avans.avd.rmc_v2.controller;
 import avans.avd.rmc_v2.model.RentalPlan;
 import avans.avd.rmc_v2.service.RentalPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,5 +27,10 @@ public class RentalPlanController {
     @PostMapping("/")
     public RentalPlan createRentalPlan(@RequestBody RentalPlan rentalPlan) {
         return rentalPlanService.createRentalPlan(rentalPlan);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<HttpStatus> deleteRentalPlan(@PathVariable Long id) {
+        return rentalPlanService.deleteRentalPlan(id);
     }
 }
