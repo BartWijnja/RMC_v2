@@ -56,8 +56,6 @@ public class CarController {
         return carService.calculateFuelCostPerYear(id, kilometers);
     }
 
-
-
 }
 
 
