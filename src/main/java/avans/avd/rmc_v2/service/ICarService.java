@@ -1,5 +1,6 @@
 package avans.avd.rmc_v2.service;
 
+import avans.avd.rmc_v2.enums.CarType;
 import avans.avd.rmc_v2.model.Car;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,4 +13,5 @@ public interface ICarService {
     Car createCar(Car car);
     Car updateCar(Car newCar, Long id);
     ResponseEntity<HttpStatus> deleteCar(Long id);
+    List<Car> getAllByCarType(CarType carType);
 }

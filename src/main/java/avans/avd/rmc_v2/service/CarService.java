@@ -27,6 +27,10 @@ public class CarService implements ICarService {
         return carRepository.findAll();
     }
 
+    public List<Car> getAllByCarType(CarType carType) {
+        return carRepository.findAllByCarType(carType);
+    }
+
     public Car createCar(Car car) {
 
         String licensePlateNumber = car.getLicensePlateNumber();
@@ -96,4 +100,5 @@ public class CarService implements ICarService {
 
         return costPerUnit * car.getConsumption() * (kilometers / 100);
     }
+
 }

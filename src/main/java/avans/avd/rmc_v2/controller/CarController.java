@@ -2,6 +2,7 @@ package avans.avd.rmc_v2.controller;
 
 
 
+import avans.avd.rmc_v2.enums.CarType;
 import avans.avd.rmc_v2.model.Car;
 import avans.avd.rmc_v2.service.CarService;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,11 @@ public class CarController {
         return carService.getAllCars();
     }
 
+    @GetMapping("/{carType}")
+    public List<Car> getAllByCarType(@PathVariable CarType carType) {
+        return carService.getAllByCarType(carType);
+    }
+
     @PostMapping("/")
     public Car createCar(@RequestBody Car car) {
 
@@ -49,6 +55,8 @@ public class CarController {
     public double getFuelCostPerYear(@PathVariable Long id, @PathVariable double kilometers) {
         return carService.calculateFuelCostPerYear(id, kilometers);
     }
+
+
 
 }
 
