@@ -1,5 +1,6 @@
 package com.rentmycar.model;
 
+import com.rentmycar.enums.ReservationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,8 +24,8 @@ public class Reservation {
     @Column(name = "total_price")
     private double totalPrice;
 
-//    @Column(name = "status")
-//    private ReservationStatus status;
+    @Column(name = "status")
+    private ReservationStatus status;
 
     @Column(name = "days_reserved")
     private int daysReserved;

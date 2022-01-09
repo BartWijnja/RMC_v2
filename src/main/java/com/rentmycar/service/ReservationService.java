@@ -53,7 +53,7 @@ public class ReservationService implements IReservationService {
         if (optionalReservation.isPresent()) {
             Reservation reservation = optionalReservation.get();
             reservation.setTotalPrice(newReservation.getTotalPrice());
-//            reservation.setStatus(newReservation.getStatus());
+            reservation.setStatus(newReservation.getStatus());
             reservation.setDaysReserved(newReservation.getDaysReserved());
             reservation.setUser(newReservation.getUser());
             reservation.setCarDisplay(newReservation.getCarDisplay());
