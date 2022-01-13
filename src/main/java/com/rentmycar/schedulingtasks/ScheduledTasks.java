@@ -1,5 +1,6 @@
 package com.rentmycar.schedulingtasks;
 
+import com.rentmycar.controller.ReservationController;
 import com.rentmycar.enums.ReservationStatus;
 import com.rentmycar.model.Reservation;
 import com.rentmycar.repository.ReservationRepository;
@@ -10,12 +11,14 @@ import org.springframework.stereotype.Component;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class ScheduledTasks {
 
     @Autowired
     private ReservationRepository reservationRepository;
+    private ReservationController reservationController;
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
@@ -29,30 +32,38 @@ public class ScheduledTasks {
     }
 
     // Checkt actieve reservations of de tijd verlopen is, zo ja veranderd de STATUS
-    @Scheduled(fixedRate = ONE_DAY)
+    @Scheduled(fixedRate = ONE_MINUTE)
     public void checkActiveReservations() {
-        reservationRepository.findAll();
+        List<Reservation> reservationList = reservationRepository.findAll();
 
-        Reservation reservation = new Reservation();
-        
-        int daysReserved = reservation.getDaysReserved();
+        for (Reservation reservation : reservationList) {
+            System.out.println("Checking Reservation Status Of " + reservation.getId());
+            if (reservation.getStatus() != ReservationStatus.EXPIRED) {
+                int daysReserved = reservation.getDaysReserved();
 
-        ZonedDateTime zdt = ZonedDateTime.of(reservation.getCreatedAt(), ZoneId.systemDefault());
-        long createdAt = zdt.toInstant().toEpochMilli();
+                int daysReservedMillis = ONE_DAY * daysReserved;
+                ZoneId zone = ZoneId.of("Europe/Amsterdam");
 
-        long dateNow = Instant.now().toEpochMilli();
+                LocalDateTime dateNow = LocalDateTime.now();
+                LocalDateTime createdDate = dateNow.minusDays(daysReserved + 1);
+                ZonedDateTime zoneDate = dateNow.atZone(zone);
+                ZonedDateTime zoneCreatedDate = createdDate.atZone(zone);
 
-        long diff = dateNow - createdAt;
+                long diff = zoneDate.toInstant().toEpochMilli() - zoneCreatedDate.toInstant().toEpochMilli();
 
-        long expiredTime = diff - daysReserved;
-
-        if (diff > daysReserved) {
-            reservation.setStatus(ReservationStatus.EXPIRED);
-            reservationRepository.save(reservation);
-            System.out.println("Reservation has been expired by" + expiredTime);
-        } else {
-            System.out.println("No reservations are expired");
+                if (diff > daysReservedMillis) {
+                    reservation.setStatus(ReservationStatus.EXPIRED);
+                    reservationRepository.save(reservation);
+                    System.out.println("Reservation " + reservation.getId() + " has been expired.");
+                }
+            }
         }
+
+
+
+
+
+
     }
 
 }
