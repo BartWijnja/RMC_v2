@@ -26,12 +26,12 @@ public class ScheduledTasks {
     private static final int ONE_HOUR = 1000 * 60 * 60;
     private static final int ONE_DAY = 1000 * 60 * 60 * 24;
 
-    @Scheduled(fixedRate = ONE_MINUTE)
+    @Scheduled(fixedRate = ONE_HOUR)
     public void reportCurrentTime() {
         System.out.println("[SCHEDULING]: The time is now " + dateFormat.format(new Date()));
     }
 
-    // Checkt actieve reservations of de tijd verlopen is, zo ja veranderd de STATUS
+    // Checking reservations every one minute
     @Scheduled(fixedRate = ONE_MINUTE)
     public void checkActiveReservations() {
         List<Reservation> reservationList = reservationRepository.findAll();
@@ -45,7 +45,7 @@ public class ScheduledTasks {
                 ZoneId zone = ZoneId.of("Europe/Amsterdam");
 
                 LocalDateTime dateNow = LocalDateTime.now();
-                LocalDateTime createdDate = dateNow.minusDays(daysReserved + 1);
+                LocalDateTime createdDate = dateNow.minusDays(daysReserved);
                 ZonedDateTime zoneDate = dateNow.atZone(zone);
                 ZonedDateTime zoneCreatedDate = createdDate.atZone(zone);
 
