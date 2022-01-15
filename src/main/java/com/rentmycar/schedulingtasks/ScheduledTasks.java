@@ -18,7 +18,6 @@ public class ScheduledTasks {
 
     @Autowired
     private ReservationRepository reservationRepository;
-    private ReservationController reservationController;
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
@@ -37,7 +36,7 @@ public class ScheduledTasks {
         List<Reservation> reservationList = reservationRepository.findAll();
 
         for (Reservation reservation : reservationList) {
-            System.out.println("Checking Reservation Status Of " + reservation.getId());
+            System.out.println("Checking reservation status of Id number : " + reservation.getId());
             if (reservation.getStatus() != ReservationStatus.EXPIRED) {
                 int daysReserved = reservation.getDaysReserved();
 
@@ -54,7 +53,7 @@ public class ScheduledTasks {
                 if (diff > daysReservedMillis) {
                     reservation.setStatus(ReservationStatus.EXPIRED);
                     reservationRepository.save(reservation);
-                    System.out.println("Reservation " + reservation.getId() + " has been expired.");
+                    System.out.println("Reservation Id " + reservation.getId() + " has been expired.");
                 }
             }
         }
