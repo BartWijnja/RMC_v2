@@ -21,7 +21,6 @@ public class ScheduledTasks {
     private ReservationController reservationController;
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-
     private static final int ONE_MINUTE = 1000 * 60;
     private static final int ONE_HOUR = 1000 * 60 * 60;
     private static final int ONE_DAY = 1000 * 60 * 60 * 24;
@@ -58,12 +57,5 @@ public class ScheduledTasks {
                 }
             }
         }
-
-
-
-
-
-
     }
-
 }
