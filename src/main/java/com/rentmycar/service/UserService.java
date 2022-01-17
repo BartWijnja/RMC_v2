@@ -5,16 +5,23 @@ import com.rentmycar.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService implements IUserService {
+public class UserService implements IUserService, UserDetailsService {
     @Autowired
     private UserRepository repository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public List<User> findAll() { return repository.findAll(); }
 
@@ -27,7 +34,18 @@ public class UserService implements IUserService {
     }
 
     public User create(User user) {
-        user.setCreatedAt(LocalDateTime.now());
+        boolean userExists = repository.findUserByEmail(user.getEmail()).isPresent();
+
+        if (userExists) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists");
+        }
+
+        LocalDateTime now = LocalDateTime.now();
+        String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+
+        user.setPassword(encodedPassword);
+        user.setCreatedAt(now);
+
         return repository.save(user);
     }
 
@@ -42,6 +60,7 @@ public class UserService implements IUserService {
             user.setLastName(newUser.getLastName());
             user.setPhoneNumber(newUser.getPhoneNumber());
             user.setEmail(newUser.getEmail());
+            user.setUsername(newUser.getUsername());
             user.setPassword(newUser.getPassword());
             user.setIban(newUser.getIban());
             user.setUserRole(newUser.getUserRole());
@@ -60,5 +79,12 @@ public class UserService implements IUserService {
 
         repository.deleteById(id);
         return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return repository.findUserByUsername(username)
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, "User with username " + username + " could not be found."));
     }
 }
