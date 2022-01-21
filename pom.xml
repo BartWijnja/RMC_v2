@@ -14,7 +14,15 @@
 	<name>rentmycar</name>
 	<description>Rent My Car</description>
 	<properties>
-		<java.version>11</java.version>
+
+		<java.version>8</java.version>
+
+		<maven.compiler.source>8</maven.compiler.source>
+
+		<maven.compiler.target>8</maven.compiler.target>
+
+		<start-class>com.rentmycar.RentmycarApplication</start-class>
+
 	</properties>
 	<dependencies>
 		<dependency>
