@@ -59,10 +59,11 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);
 
-        Map<String, String> token = new HashMap<>();
-        token.put("accessToken", accessToken);
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("accessToken", accessToken);
+        userData.put("id", user.getId());
 
         response.setContentType(APPLICATION_JSON_VALUE);
-        new ObjectMapper().writeValue(response.getOutputStream(), token);
+        new ObjectMapper().writeValue(response.getOutputStream(), userData);
     }
 }
