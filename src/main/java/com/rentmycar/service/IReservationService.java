@@ -9,6 +9,7 @@ import java.util.List;
 public interface IReservationService {
     List<Reservation> findAll();
     ResponseEntity<Reservation> find(Long id);
+    ResponseEntity<List<Reservation>> findByUser(Long userId);
     ResponseEntity<List<Reservation>> findByReservation(Long userId, Long carDisplayId);
     Reservation create(Reservation reservation);
     ResponseEntity<Reservation> update(Reservation newReservation, Long id);

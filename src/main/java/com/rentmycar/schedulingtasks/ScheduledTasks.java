@@ -35,8 +35,9 @@ public class ScheduledTasks {
         List<Reservation> reservationList = reservationRepository.findAll();
 
         for (Reservation reservation : reservationList) {
-            System.out.println("Checking reservation status of Id number : " + reservation.getId());
-            if (reservation.getStatus() != ReservationStatus.EXPIRED) {
+            if (reservation.getStatus() == ReservationStatus.PENDING) {
+                System.out.println("Checking reservation status of Id number : " + reservation.getId());
+                System.out.println(reservation.getStatus());
                 int daysReserved = reservation.getDaysReserved();
 
                 int daysReservedMillis = ONE_DAY * daysReserved;

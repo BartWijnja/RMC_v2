@@ -27,6 +27,19 @@ public class ReservationService implements IReservationService {
         return ResponseEntity.ok(repository.findById(id).get());
     }
 
+    public ResponseEntity<List<Reservation>> findByUser(Long userId) {
+        List<Reservation> allReservations = repository.findAll();
+        List<Reservation> matchingReservations = new ArrayList<>();
+
+        for (Reservation reservation : allReservations) {
+            if (reservation.getUser().getId().equals(userId)) {
+                matchingReservations.add(reservation);
+            }
+        }
+
+        return ResponseEntity.ok(matchingReservations);
+    }
+
     public ResponseEntity<List<Reservation>> findByReservation(Long userId, Long carDisplayId) {
         List<Reservation> allReservations = repository.findAll();
         List<Reservation> matchingReservations = new ArrayList<>();

@@ -23,6 +23,11 @@ public class ReservationController {
         return service.find(id);
     }
 
+    @GetMapping("/{userId}/reservation")
+    public ResponseEntity<List<Reservation>> findByUser(@PathVariable(name = "userId") Long userId) {
+        return service.findByUser(userId);
+    }
+
     @GetMapping("/{userId}/reservation/{carDisplayId}")
     public ResponseEntity<List<Reservation>> findByReservation(@PathVariable(name = "userId") Long userId, @PathVariable(name = "carDisplayId") Long carDisplayId) {
         return service.findByReservation(userId, carDisplayId);

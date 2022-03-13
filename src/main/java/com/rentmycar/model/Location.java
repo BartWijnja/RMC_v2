@@ -39,6 +39,15 @@ public class Location {
     @Column(name = "location_type")
     private LocationType locationType;
 
+    @Column(name = "latitude")
+    private double latitude;
+
+    @Column(name = "longitude")
+    private double longitude;
+
+    @Column(name = "title")
+    private String title;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 }

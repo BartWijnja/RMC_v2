@@ -1,5 +1,6 @@
 package com.rentmycar.controller;
 
+import com.rentmycar.enums.CarType;
 import com.rentmycar.model.CarDisplay;
 import com.rentmycar.service.CarDisplayService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,19 @@ public class CarDisplayController {
     @GetMapping("/{id}")
     public ResponseEntity<CarDisplay> find(@PathVariable Long id) {
         return service.find(id);
+    }
+
+    @GetMapping("/{locationId}/display")
+    public ResponseEntity<List<CarDisplay>> findAllByLocation(@PathVariable(name = "locationId") Long locationId) {
+        return service.findAllByLocation(locationId);
+    }
+
+    @GetMapping("/{locationId}/display/type/{carType}")
+    public ResponseEntity<List<CarDisplay>> findByDisplayWithType(
+            @PathVariable(name = "locationId") Long locationId,
+            @PathVariable(name = "carType") CarType carType
+    ) {
+        return service.findByDisplayWithType(locationId, carType);
     }
 
     @GetMapping("/{locationId}/display/{carId}")

@@ -1,5 +1,6 @@
 package com.rentmycar.service;
 
+import com.rentmycar.enums.CarType;
 import com.rentmycar.model.CarDisplay;
 import com.rentmycar.repository.CarDisplayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,32 @@ public class CarDisplayService implements ICarDisplayService {
         }
 
         return ResponseEntity.ok(repository.findById(id).get());
+    }
+
+    public ResponseEntity<List<CarDisplay>> findAllByLocation(Long locationId) {
+        List<CarDisplay> allCarDisplays = repository.findAll();
+        List<CarDisplay> matchingCarDisplays = new ArrayList<>();
+
+        for (CarDisplay carDisplay : allCarDisplays) {
+            if (carDisplay.getLocation().getId().equals(locationId)) {
+                matchingCarDisplays.add(carDisplay);
+            }
+        }
+
+        return ResponseEntity.ok(matchingCarDisplays);
+    }
+
+    public ResponseEntity<List<CarDisplay>> findByDisplayWithType(Long locationId, CarType carType) {
+        List<CarDisplay> allCarDisplays = repository.findAll();
+        List<CarDisplay> matchingCarDisplays = new ArrayList<>();
+
+        for (CarDisplay carDisplay : allCarDisplays) {
+            if (carDisplay.getLocation().getId().equals(locationId) && carDisplay.getCar().getCarType().equals(carType)) {
+                matchingCarDisplays.add(carDisplay);
+            }
+        }
+
+        return ResponseEntity.ok(matchingCarDisplays);
     }
 
     public ResponseEntity<List<CarDisplay>> findByDisplay(Long locationId, Long carId) {
